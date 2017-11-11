@@ -5,13 +5,13 @@ using namespace std;
 int main() {
   string length;
   string array;
+  string integer_str;
   string result;
-  string count;
-  string part1, part2;
   int length_int;
   int counter = 0;
   int k = 0;
   int z = 0;
+  int array1[100];
   cin >> length;
   cin.ignore(numeric_limits<streamsize>::max(), '\n');
   getline(cin, array);
@@ -22,21 +22,25 @@ int main() {
   if (length_int != (counter + 1))
     cout << " An error has occurred while reading" << endl;
   else {
-    getline(cin, count);
-    if (count == "") {
-      cout << " An error has occurred while reading" << endl;
-    } else {
-      while (k != (length_int - atoi(count.c_str()))) {
-        part2 = part2 + array[z];
-        if (array[z] == ' ') k++;
+    for (int i = 0; i < (array.length() / 2); i++) {
+      swap(array[i], array[(array.length()) - i - 1]);
+    }
+    while (true) {
+      for (int i = z; i < array.length(); i++) {
+        if (array[i] == ' ') {
+          z++;
+          break;
+        }
+        integer_str = integer_str + array[i];
         z++;
       }
-      for (int i = part2.length(); i < array.length(); i++) {
-        part1 = part1 + array[i];
+      if (integer_str == "") break;
+      for (int j = 0; j < ((integer_str.length()) / 2); j++) {
+        swap(integer_str[j], integer_str[integer_str.length() - j - 1]);
       }
-
-      result = part1 + ' ' + part2;
-      cout << result << endl;
+      result = result + integer_str + " ";
+      integer_str = "";
     }
+    cout << result << endl;
   }
 }
